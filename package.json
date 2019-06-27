@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/hillrg22/my-store-server#readme",
   "devDependencies": {
+    "eslint": "^6.0.1",
     "nodemon": "^1.19.1"
   },
   "dependencies": {
