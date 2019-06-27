@@ -11,6 +11,12 @@ app.use(cors())
 // morgan provides logging info to console
 app.use(morgan('dev'))
 
+
+// Sequelize Models
+const db = require('./models')
+const Category = db.Category
+
+
 // Router files
 
 
@@ -24,6 +30,19 @@ app.get('/api/test', (req, res, next)=> {
   // const error = new Error('it blew up')
   // next(error)
 })
+
+app.get('/api/categories', (req, res, next)=> {
+  Category.findAll()
+    .then(categories => {
+      res.json({
+        categories
+      })
+    })
+    .catch(error => {
+      next(error)
+    })
+})
+
 
 // Error handling
 
