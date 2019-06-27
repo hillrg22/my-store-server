@@ -15,6 +15,7 @@ app.use(morgan('dev'))
 
 
 // Routes
+// eslint-disable-next-line
 app.get('/api/test', (req, res, next)=> {
   res.json({
     message: 'Route working'
@@ -29,6 +30,7 @@ app.get('/api/test', (req, res, next)=> {
 app.use(notFound)
 app.use(errorHandler)
 
+// eslint-disable-next-line
 function notFound(req, res, next) {
   res.status(404).send({error: 'Not found!', status: 404, url: req.originalUrl})
 }
