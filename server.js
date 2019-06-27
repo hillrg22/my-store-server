@@ -8,7 +8,7 @@ const app = express()
 
 // Middleware
 app.use(cors())
-  // morgan provides logging info to console
+// morgan provides logging info to console
 app.use(morgan('dev'))
 
 // Router files
@@ -19,7 +19,7 @@ app.get('/api/test', (req, res, next)=> {
   res.json({
     message: 'Route working'
   })
-  
+
   // const error = new Error('it blew up')
   // next(error)
 })
