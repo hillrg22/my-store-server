@@ -1,6 +1,10 @@
+require('dotenv').config()
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
+
+
 
 const PORT = process.env.PORT || 4000
 const app = express()
@@ -70,6 +74,30 @@ app.get('/api/products/:id', (req, res, next) => {
     .catch(error => {
       console.log(error)
     })
+})
+
+app.post('/api/checkout', async (req, res, next) => {
+  const lineItems = [{
+    name: 'T-shirt',
+    description: 'Comfortable cotton t-shirt',
+    images: ['http://lorempixel.com/400/200/'],
+    amount: 500,
+    currency: 'usd',
+    quantity: 1,
+  }]
+
+  try {
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: lineItems,
+      success_url: 'http://localhost:3000/success',
+      cancel_url: 'http://localhost:3000/cancel'
+    })
+    res.json({ session })
+  }
+  catch (error) {
+    next(error)
+  }
 })
 
 
