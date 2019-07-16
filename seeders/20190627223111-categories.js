@@ -1,6 +1,7 @@
 'use strict'
 
 module.exports = {
+  // eslint-disable-next-line
   up: (queryInterface, Sequelize) => {
     /*
       Add altering commands here.
@@ -25,6 +26,7 @@ module.exports = {
     ], {})
   },
 
+  // eslint-disable-next-line
   down: (queryInterface, Sequelize) => {
     /*
       Add reverting commands here.

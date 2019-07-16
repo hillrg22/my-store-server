@@ -33,9 +33,7 @@ app.get('/api/test', (req, res, next)=> {
 })
 
 app.get('/api/categories', (req, res, next)=> {
-  Category.findAll({
-    include: [{ model: Product}]
-  })
+  Category.findAll()
     .then(categories => {
       res.json({
         categories
@@ -46,7 +44,33 @@ app.get('/api/categories', (req, res, next)=> {
     })
 })
 
+app.get('/api/products', (req, res, next) =>{
+  Product.findAll({
+    include: [{ model: Category}]
+  })
+    .then(products => {
+      res.json({
+        products
+      })
+    })
+    .catch(error => {
+      next(error)
+    })
+})
 
+app.get('/api/products/:id', (req, res, next) => {
+  const id = req.params.id
+
+  Product.findByPk(id, {
+    include: [{ model: Category }]
+  })
+    .then(product => {
+      res.json({ product })
+    })
+    .catch(error => {
+      console.log(error)
+    })
+})
 
 
 // Error handling
