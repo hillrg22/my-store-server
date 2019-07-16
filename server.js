@@ -77,6 +77,7 @@ app.get('/api/products/:id', (req, res, next) => {
 })
 
 app.post('/api/checkout', async (req, res, next) => {
+  // Create the session
   const lineItems = [{
     name: 'T-shirt',
     description: 'Comfortable cotton t-shirt',
@@ -93,6 +94,7 @@ app.post('/api/checkout', async (req, res, next) => {
       success_url: 'http://localhost:3000/success',
       cancel_url: 'http://localhost:3000/cancel'
     })
+    // Send session to client
     res.json({ session })
   }
   catch (error) {
