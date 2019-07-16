@@ -41,6 +41,7 @@ module.exports = {
       }
     })
   },
+  // eslint-disable-next-line
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('Products')
   }
