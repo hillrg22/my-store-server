@@ -5,7 +5,6 @@ const cors = require('cors')
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
 
-
 const PORT = process.env.PORT || 4000
 const app = express()
 
@@ -14,6 +13,7 @@ const app = express()
 app.use(cors())
 // morgan provides logging info to console
 app.use(morgan('dev'))
+app.use(express.json())
 
 
 // Sequelize Models
@@ -78,14 +78,8 @@ app.get('/api/products/:id', (req, res, next) => {
 
 app.post('/api/checkout', async (req, res, next) => {
   // Create the session
-  const lineItems = [{
-    name: 'T-shirt',
-    description: 'Comfortable cotton t-shirt',
-    images: ['http://lorempixel.com/400/200/'],
-    amount: 500,
-    currency: 'usd',
-    quantity: 1,
-  }]
+  const lineItem = req.body
+  const lineItems = [lineItem]
 
   try {
     const session = await stripe.checkout.sessions.create({
