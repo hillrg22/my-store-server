@@ -33,12 +33,24 @@ app.get('/api/test', (req, res, next)=> {
 })
 
 app.get('/api/categories', (req, res, next)=> {
-  Category.findAll({
-    include: [{ model: Product}]
-  })
+  Category.findAll()
     .then(categories => {
       res.json({
         categories
+      })
+    })
+    .catch(error => {
+      next(error)
+    })
+})
+
+app.get('/api/products', (req, res, next) =>{
+  Product.findAll({
+    include: [{ model: Category}]
+  })
+    .then(products => {
+      res.json({
+        products
       })
     })
     .catch(error => {
